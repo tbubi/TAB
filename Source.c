@@ -12,7 +12,7 @@ int main()
 {
 	char datoteka[MAX_FILE_NAME] = {0};
 	printf("Unesi ime datoteke: ");
-	scanf(" %[^\n]", datoteka);
+	scanf(" %s", datoteka);
 
 	printf("Broj studenata u datoteci %s je %d",datoteka,prebroji(datoteka));
 

@@ -6,10 +6,11 @@
 #define FILE_DIDNT_OPEN_ERROR (-1)
 #define MAX_LINE (1024)
 #define MAX_FILE_NAME (256)
+#define MAX (25)
 
 typedef struct {
-	char ime[25];
-	char prezime[25];
+	char ime[MAX];
+	char prezime[MAX];
 	int bodovi;
 }student;
 
@@ -30,6 +31,11 @@ int main()
 
 	studenti = (student*)malloc(brst * sizeof(student));
 	
+	if(studenti==NULL)
+	{
+		printf("Memorija nije alocirana!");
+		return FILE_DIDNT_OPEN_ERROR;
+	}
 	ispis(studenti,brst);
 
 	return 0;
@@ -60,9 +66,9 @@ int prebroji(char* datoteka)
 }
 void ispis(student* studenti, int br)
 {
-	FILE* fp;
-	fp = fopen("stud.txt", "r");
-	int i;
+	FILE* fp=NULL;
+	fp = fopen(datoteka, "r");
+	int i=0;
 	double max = 50;
 	for (i = 0;i < br;i++)
 	{

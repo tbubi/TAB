@@ -15,7 +15,7 @@ typedef struct {
 }student;
 
 int prebroji(char* datoteka);
-void ispis(student* studenti, int br);
+void ispis(student* studenti, int br,char* datoteka);
 
 int main()
 {
@@ -36,7 +36,7 @@ int main()
 		printf("Memorija nije alocirana!");
 		return FILE_DIDNT_OPEN_ERROR;
 	}
-	ispis(studenti,brst);
+	ispis(studenti,brst,datoteka);
 
 	return 0;
 }
@@ -64,7 +64,7 @@ int prebroji(char* datoteka)
 	fclose(fp);
 	return broj;
 }
-void ispis(student* studenti, int br)
+void ispis(student* studenti, int br,char* datoteka)
 {
 	FILE* fp=NULL;
 	fp = fopen(datoteka, "r");

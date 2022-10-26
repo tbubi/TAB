@@ -14,8 +14,8 @@ osoba* Lista(int n);
 void Ispis(osoba* head);
 void UnosP(osoba* head, char [], char [], int);
 void UnosK(osoba* head, char [], char [], int);
-//void Trazi(osoba* head, char ime, char prezime, int godina);
-//void Brisi(oosba* head, char ime, char prezime, int godina);
+head Trazi(osoba* head, char [], char [], int);
+void Brisi(osoba* head, char [], char [], int);
 int main() {
     int n = 0;
     int izbor1 = 0, izbor2 = 0;
@@ -64,14 +64,18 @@ int main() {
                     UnosK(&HEAD, ime, prezime, godina);
                 }
                 if (izbor2 == 3) {
-                    printf("Unesite ime osobe: ");
                     printf("Unesite prezime osobe: ");
-                    printf("Unesite godinu rodenja osobe: ");
+                    scanf("%s", &prezime);
+                    printf("Osoba se nalazi na poziciji: ", Trazi(&HEAD, ime, prezime, godina));
                 }
                 if (izbor2 == 4) {
                     printf("Unesite ime osobe: ");
+                    scanf("%s", &ime);
                     printf("Unesite prezime osobe: ");
+                    scanf("%s", &prezime);
                     printf("Unesite godinu rodenja osobe: ");
+                    scanf("%d", &godina);
+                    Brisi(&HEAD, ime, prezime, godina);
                 }
                 if (izbor2 == 5) {
                     Ispis(HEAD);
@@ -130,4 +134,12 @@ void UnosK(osoba* head, char name[], char surname[], int year) {
     head1->godina = year;
     head->next = head1;
     head1->next = NULL;
+}
+head Trazi(osoba* head, char name[], char surname[], int year) {
+    while (head != NULL && head->prezime != surname)
+        head = head->next;
+    return head;
+}
+void Brisi(osoba* head, char name[], char surname[], int year) {
+    
 }

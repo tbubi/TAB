@@ -1,29 +1,33 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #define MAX (30)
+typedef struct osoba* head;
 typedef struct {
     char ime[MAX];
     char prezime[MAX];
     int godina;
-    struct node* next;
-}node;
-node* createlinkedlist(int n);
-void Ispis(node* head);
-void UnosP(node*head,char ime,char prezime,int godina);
-//void UnosK(node* head, char ime, char prezime, int godina);
-//void Trazi(node* head, char ime, char prezime, int godina);
-//void Brisi(node* head, char ime, char prezime, int godina);
+    struct osoba* next;
+}osoba;
+osoba* Lista(int n);
+void Ispis(osoba* head);
+void UnosP(osoba* head, char [], char [], int);
+void UnosK(osoba* head, char [], char [], int);
+//void Trazi(osoba* head, char ime, char prezime, int godina);
+//void Brisi(oosba* head, char ime, char prezime, int godina);
 int main() {
     int n = 0;
-    int izbor1, izbor2;
-    node* HEAD = NULL;
+    int izbor1 = 0, izbor2 = 0;
+    char ime[MAX], prezime[MAX];
+    int godina = 0;
+    osoba* HEAD = NULL;
     printf("Koliko osoba zelite unijeti? ");
     scanf("%d", &n);
     if (n == 0)
         printf("\nLista je prazna.");
     printf("\n");
-    HEAD = createlinkedlist(n);
+    HEAD = Lista(n);
     Ispis(HEAD);
     do {
             printf("\nZelte li raditi nesto sa listom?");
@@ -43,16 +47,21 @@ int main() {
                 printf("\n");
                 if (izbor2 == 1) {
                     printf("Unesite ime osobe: ");
-                    scanf("%s", &(HEAD->ime));
+                    scanf("%s", &ime);
                     printf("Unesite prezime osobe: ");
-                    scanf("%s", &(HEAD->ime));
+                    scanf("%s", &prezime);
                     printf("Unesite godinu rodenja osobe: ");
-                    scanf("%d", &(HEAD->ime));
+                    scanf("%d", &godina);
+                    UnosP(&HEAD, ime, prezime, godina);
                 }
                 if (izbor2 == 2) {
                     printf("Unesite ime osobe: ");
+                    scanf("%s", &ime);
                     printf("Unesite prezime osobe: ");
+                    scanf("%s", &prezime);
                     printf("Unesite godinu rodenja osobe: ");
+                    scanf("%d", &godina);
+                    UnosK(&HEAD, ime, prezime, godina);
                 }
                 if (izbor2 == 3) {
                     printf("Unesite ime osobe: ");
@@ -71,13 +80,13 @@ int main() {
     } while (izbor1 == 1);
     return 0;
 }
-node* createlinkedlist(int n) {
+osoba* Lista(int n) {
     int i = 0;
-    node* head = NULL;
-    node* temp = NULL;
-    node* p = NULL;
+    osoba* head = NULL;
+    osoba* temp = NULL;
+    osoba* p = NULL;
     for (i = 0; i < n; i++) {
-        temp = (node*)malloc(sizeof(node));
+        temp = (osoba*)malloc(sizeof(osoba));
         printf("Ime %d. osobe: ", i + 1);
         scanf("%s", &(temp->ime));
         printf("Prezime %d. osobe: ", i + 1);
@@ -97,18 +106,28 @@ node* createlinkedlist(int n) {
     }
     return head;
 }
-void Ispis(node* head) {
-    node* p = head;
+void Ispis(osoba* head) {
+    osoba* p = head;
     while (p != NULL) {
         printf("%s %s %d\n", p->ime, p->prezime, p->godina);
         p = p->next;
     }
 }
-void UnosP(node** head, char name,char surname,int year) {
-    node* head1 = (node*)malloc(sizeof(node));
-    //head1->ime = name;
-    //head1->prezime = surname;
+void UnosP(osoba* head, char name[], char surname[], int year) {
+    osoba* head1 = (osoba*)malloc(sizeof(osoba));
+    strcpy(head1->ime, name);
+    strcpy(head1->prezime, surname);
     head1->godina = year;
-    head1->next = head;
-    *head = head1;
+    head1->next = head->next;
+    head->next = head1;
+}
+void UnosK(osoba* head, char name[], char surname[], int year) {
+    while (head->next != NULL)
+        head = head->next;
+    osoba* head1 = (osoba*)malloc(sizeof(osoba));
+    strcpy(head1->ime, name);
+    strcpy(head1->prezime, surname);
+    head1->godina = year;
+    head->next = head1;
+    head1->next = NULL;
 }

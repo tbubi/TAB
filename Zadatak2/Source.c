@@ -98,17 +98,17 @@ int UnosK(head h) {
     return 0;
 }
 int Trazi(head h) {
-    char prez[MAX];
+    char prez[MAX]={0};
     printf("Unesite prezime osobe koju zelite pronaci: ");
     scanf("%s", &prez);
     printf("\n");
-    while (h != NULL && strcmp(prez, h->prezime) != NULL); {
+    while (h != NULL && strcmp(prez, h->prezime) != 0); {
         h = h->next;
     }
     if (h == NULL)
         printf("Osoba ne postoji!\n");
     else
-        printf("Adresa trazene odobe je: %d", h);
+        printf("Adresa trazene odobe je: %p\n", h);
     return 0;
 }
 int Brisi(head h) {
@@ -134,4 +134,5 @@ int Ispis(head h) {
         printf("%s %s %d\n", h->ime, h->prezime, h->godina);
         h = h->next;
     }
+    return 0;
 }

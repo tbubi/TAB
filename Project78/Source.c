@@ -16,6 +16,7 @@ int UnosSort(poz p, int coef, int expo);
 int CitaDat(poz p);
 int Ispis(poz p);
 int Zbroj(poz p1, poz p2);
+int Umnizak(poz p1,poz p2);
 
 int main() {
 	polinom head1;

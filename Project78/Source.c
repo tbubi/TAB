@@ -135,7 +135,6 @@ int Umnozak(poz p1, poz p2) {
 			q2 = q2->next;
 		}
 		q1 = q1->next;
-		q2 = p2;
 	}
 	printf("Umnozak polinoma:\n\n");
 	Ispis(p4);

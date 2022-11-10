@@ -127,7 +127,7 @@ int Umnozak(poz p1, poz p2) {
 	poz q2 = p2;
 	poz p4 = NULL;
 	if (p1 == NULL || p2 == NULL) {
-		printf("Prazna datoteka!\n");
+		printf("Nema mnozenja!\n");
 		return;
 	}
 	while (q1 != NULL) {

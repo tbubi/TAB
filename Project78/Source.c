@@ -60,7 +60,6 @@ int UnosSort(poz p, int coef, int expo) {
 		printf("Neuspjesna alokacija memorije!");
 		return ERROR;
 	}
-	q->next = NULL;
 	q->koef = coef;
 	q->eks = expo;
 	while (p->next != NULL && p->next->eks > expo) {

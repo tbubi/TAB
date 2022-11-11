@@ -1,5 +1,0 @@
-﻿  Source.c
-C:\Users\anteb\source\repos\Project78\Project78\Source.c(32,9): warning C4013: 'Umnozak' undefined; assuming extern returning int
-C:\Users\anteb\source\repos\Project78\Project78\Source.c(130,3): warning C4033: 'Umnozak' must return a value
-C:\Users\anteb\source\repos\Project78\Project78\Source.c(142): warning C4716: 'Umnozak': must return a value
-  Project78.vcxproj -> C:\Users\anteb\source\repos\Project78\Debug\Project78.exe

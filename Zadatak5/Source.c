@@ -1,0 +1,121 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#define ERROR (-1)
+#define MAX_NAME (256)
+#define MAX_LINE (1024)
+
+typedef struct postfix* poz;
+typedef struct postfix {
+	int broj;
+	poz next;
+}postfix;
+
+int CitaDat(poz p);
+int Push(poz p, int data);
+int Pop(poz p);
+int Ispis(poz p);
+
+poz top = NULL;
+
+int main() {
+	postfix head;
+	head.next = NULL;
+	CitaDat(&head);
+	Ispis(head.next);
+	return 0;
+}
+
+int CitaDat(poz p) {
+	int num, a, b, rez;
+	char buffer[MAX_LINE] = { 0 };
+	char datoteka[MAX_NAME] = { 0 };
+	printf("Unesi ime datoteke: ");
+	scanf("%s", datoteka);
+	printf("\n");
+	FILE* fp = NULL;
+	fp = fopen(datoteka, "r");
+	if (fp == NULL) {
+		printf("Datoteka %s se nije otvorila!\n", datoteka);
+		return ERROR;
+	}
+	while (fgets(buffer, MAX_LINE, fp) != NULL) {
+		if (sscanf(buffer, "%d", &num) > 0) {
+			Push(p, num);
+		}
+		else {
+			a = Pop(p);
+			b = Pop(p);
+			switch (num) {
+			case'+':
+				rez = b + a;
+				Push(p, rez);
+				break;
+			case'-':
+				rez = b - a;
+				Push(p, rez);
+				break;
+			case'*':
+				rez = b * a;
+				Push(p, rez);
+				break;
+			case'/':
+				rez = b / a;
+				Push(p, rez);
+				break;
+			default:
+				printf("Nepoznat operator!");
+			}
+		}
+	}
+	if (top != NULL && top->next == NULL)
+		printf("Rezultat: %d\n", top->broj);
+	fclose(fp);
+	return 0;
+}
+
+int Ispis(poz p) {
+	if (p == NULL) {
+		printf("Prazna datoteka!");
+	}
+	else {
+		while (p != NULL) {
+			printf("%d ", p->broj);
+			p = p->next;
+		}
+	}
+	printf("\n");
+	return 0;
+}
+
+int Push(poz p, int el) {
+	poz q = NULL;
+	q = (poz)malloc(sizeof(postfix));
+	if (q == NULL) {
+		printf("Neuspjesna alokacija memorije!");
+		return ERROR;
+	}
+	if (top == NULL) {
+		q->broj = el;
+		q->next = NULL;
+		top = q;
+	}
+	q->broj = el;
+	q->next = p->next;
+	p->next = q;
+	return 0;
+}
+
+int Pop(poz p) {
+	int data = 0;
+	poz temp;
+	if (top == NULL) {
+		printf("Stog je prazan!");
+		return ERROR;
+	}
+	temp = p->next;
+	p->next = temp->next;
+	free(temp);
+	return 0;
+}

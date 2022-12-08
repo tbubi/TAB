@@ -15,15 +15,11 @@ typedef struct postfix {
 int CitaDat(poz p);
 int Push(poz p, int data);
 int Pop(poz p);
-int Ispis(poz p);
-
-poz top = NULL;
 
 int main() {
 	postfix head;
 	head.next = NULL;
 	CitaDat(&head);
-	Ispis(head.next);
 	return 0;
 }
 
@@ -40,7 +36,7 @@ int CitaDat(poz p) {
 		printf("Datoteka %s se nije otvorila!\n", datoteka);
 		return ERROR;
 	}
-	while (fgets(buffer, MAX_LINE, fp) != NULL) {
+	while (fgets(buffer, MAX_LINE, fp) != NULL && p->next!=NULL) {
 		if (sscanf(buffer, "%d", &num) > 0) {
 			Push(p, num);
 		}
@@ -65,27 +61,13 @@ int CitaDat(poz p) {
 				Push(p, rez);
 				break;
 			default:
-				printf("Nepoznat operator!");
+				printf("Nepoznat operator!\n");
 			}
 		}
 	}
-	if (top != NULL && top->next == NULL)
-		printf("Rezultat: %d\n", top->broj);
+	if (p != NULL && p->next == NULL)
+		printf("Rezultat: %d\n", p->broj);
 	fclose(fp);
-	return 0;
-}
-
-int Ispis(poz p) {
-	if (p == NULL) {
-		printf("Prazna datoteka!");
-	}
-	else {
-		while (p != NULL) {
-			printf("%d ", p->broj);
-			p = p->next;
-		}
-	}
-	printf("\n");
 	return 0;
 }
 
@@ -93,13 +75,13 @@ int Push(poz p, int el) {
 	poz q = NULL;
 	q = (poz)malloc(sizeof(postfix));
 	if (q == NULL) {
-		printf("Neuspjesna alokacija memorije!");
+		printf("Neuspjesna alokacija memorije!\n");
 		return ERROR;
 	}
-	if (top == NULL) {
+	if (p == NULL) {
 		q->broj = el;
 		q->next = NULL;
-		top = q;
+		p = q;
 	}
 	q->broj = el;
 	q->next = p->next;
@@ -110,12 +92,13 @@ int Push(poz p, int el) {
 int Pop(poz p) {
 	int data = 0;
 	poz temp;
-	if (top == NULL) {
-		printf("Stog je prazan!");
+	if (p == NULL) {
+		printf("Stog je prazan!\n");
 		return ERROR;
 	}
-	temp = p->next;
-	p->next = temp->next;
+	data = p->broj;
+	temp = p;
+	p = p->next;
 	free(temp);
-	return 0;
+	return data;
 }

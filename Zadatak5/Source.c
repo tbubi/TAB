@@ -90,7 +90,7 @@ int Push(poz p, int el) {
 }
 
 int Pop(poz p) {
-	int data = 0;
+	int data;
 	poz temp;
 	if (p == NULL) {
 		printf("Stog je prazan!\n");

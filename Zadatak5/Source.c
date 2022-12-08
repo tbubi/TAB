@@ -13,7 +13,7 @@ typedef struct postfix {
 }postfix;
 
 int CitaDat(poz p);
-int Push(poz p, int data);
+int Push(poz p, int el);
 int Pop(poz p);
 
 int main() {

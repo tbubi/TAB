@@ -1,0 +1,4 @@
+﻿  Source.c
+C:\Users\anteb\source\repos\Zadatak10\Zadatak10\Source.c(53,19): warning C4133: 'function': incompatible types - from 'pozd' to 'pozg'
+C:\Users\anteb\source\repos\Zadatak10\Zadatak10\Source.c(98,15): warning C4047: 'return': 'pozg' differs in levels of indirection from 'int'
+  Zadatak10.vcxproj -> C:\Users\anteb\source\repos\Zadatak10\Debug\Zadatak10.exe

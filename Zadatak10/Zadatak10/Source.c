@@ -26,14 +26,14 @@ int CitaDatDrzave(pozd p);
 int UnosSortDrzave(pozd p, char named[]);
 int IspisDrzave(pozd p);
 pozg UnosGradovi(pozg p, char nameg[], int stan);
-pozg CitaDatGradovi(pozg p, char namef[]);
+int CitaDatGradovi(pozd p, char namef[]);
 pozg IspisGradovi(pozg p);
 
 int main()
 {
-	grad* root = NULL;
 	drzava Head;
 	Head.next = NULL;
+	Head.root = NULL;
 	CitaDatDrzave(&Head);
 	IspisDrzave(Head.next);
 	return 0;
@@ -50,7 +50,7 @@ int CitaDatDrzave(pozd p) {
 	}
 	while (fscanf(fp, "%s %s", named, filename) > 0) {
 		UnosSortDrzave(p, named);
-		CitaDatGradovi(p, filename);
+		CitaDatGradovi(p->next, filename);
 	}
 	fclose(fp);
 	return 0;
@@ -79,8 +79,9 @@ int IspisDrzave(pozd p) {
 	}
 	else {
 		while (p != NULL) {
-			printf("%s\n", p->imed);
-			//IspisGradovi(p->root);
+			printf("*******%s*******\n\n", p->imed);
+			IspisGradovi(p->root);
+			printf("\n");
 			p = p->next;
 		}
 	}
@@ -88,9 +89,10 @@ int IspisDrzave(pozd p) {
 	return 0;
 }
 
-pozg CitaDatGradovi(pozg p, char namef[]) {
+int CitaDatGradovi(pozd p, char namef[]) {
 	char nameg[MAX];
 	int stan = 0;
+	p->root = NULL;
 	FILE* fp = NULL;
 	fp = fopen(namef, "r");
 	if (fp == NULL) {
@@ -98,10 +100,10 @@ pozg CitaDatGradovi(pozg p, char namef[]) {
 		return ERROR;
 	}
 	while (fscanf(fp, "%s %d", nameg, &stan) > 0) {
-		UnosGradovi(p, nameg, stan);
+		p->root = UnosGradovi(p->root, nameg, stan);
 	}
 	fclose(fp);
-	return p;
+	return 0;
 }
 
 pozg UnosGradovi(pozg p, char nameg[], int stan) {
